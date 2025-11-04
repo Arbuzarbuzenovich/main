@@ -1,0 +1,128 @@
+flowchart TD
+    Start([Начало]) --> A1[Пользователь открывает приложение]
+    
+    A1 --> A2{Пользователь<br/>авторизован?}
+    A2 -->|Нет| E1[Отображение сообщения<br/>об ошибке]
+    E1 --> End1([Конец])
+    
+    A2 -->|Да| A3[Отобразить главную страницу]
+    
+    A3 --> B1[/Выбор функции/]
+    
+    %% Поиск и заказ лекарств
+    B1 --> C1[Выбрать: Поиск лекарств]
+    C1 --> C2[Ввести название препарата]
+    C2 --> C3[Отобразить результаты поиска]
+    C3 --> C4{Выбран товар?}
+    C4 -->|Нет| C2
+    C4 -->|Да| C5[Просмотр информации о товаре]
+    C5 --> C6[Проверка наличия в аптеках]
+    C6 --> C7{Товар в наличии?}
+    C7 -->|Нет| C8[Сообщение: Товара нет в наличии]
+    C8 --> End2([Конец])
+    C7 -->|Да| C9[Добавить в корзину]
+    C9 --> C10[Перейти к оформлению]
+    
+    %% Просмотр заказов
+    B1 --> D1[Выбрать: Мои заказы]
+    D1 --> D2[Запрос данных о заказах]
+    D2 --> D3[Отобразить историю заказов]
+    D3 --> D4[Показать статус активных заказов]
+    D4 --> End3([Конец])
+    
+    %% Управление профилем
+    B1 --> F1[Выбрать: Профиль]
+    F1 --> F2{Выбрать действие}
+    F2 -->|Просмотр бонусов| F3[Запрос баланса бонусов]
+    F3 --> F4[Отобразить бонусы]
+    F4 --> End4([Конец])
+    
+    F2 -->|Настройки| F5[Изменить язык интерфейса<br/>Изменить контактные данные]
+    F5 --> End5([Конец])
+    
+    F2 -->|Электронные рецепты| F6[Просмотр рецептов<br/>Загрузка нового рецепта]
+    F6 --> End6([Конец])
+    
+    %% Оформление заказа
+    C10 --> G1[Выбрать: Корзина]
+    B1 --> G1
+    G1 --> G2[Просмотр содержимого корзины]
+    G2 --> G3{Корзина пуста?}
+    G3 -->|Да| G4[Сообщение: Корзина пуста]
+    G4 --> End7([Конец])
+    
+    G3 -->|Нет| G5{Способ получения?}
+    G5 -->|Самовывоз| G6[Выбрать аптеку на карте]
+    G5 -->|Доставка| G7[Ввести адрес доставки]
+    
+    G6 --> G8[Выбрать способ оплаты]
+    G7 --> G8
+    
+    G8 --> G9{Оплата онлайн?}
+    G9 -->|Да| G10[Ввод данных карты]
+    G10 --> G11[Обработка платежа]
+    G11 --> G12{Платёж успешен?}
+    G12 -->|Нет| G13[Сообщение об ошибке оплаты]
+    G13 --> End8([Конец])
+    
+    G12 -->|Да| G14[Подтверждение оплаты]
+    G14 --> G15[Создание заказа]
+    
+    G9 -->|Нет - При получении| G16[Резервирование товаров]
+    G16 --> G15
+    
+    G15 --> G17[Отправка уведомления]
+    G17 --> G18[Отобразить подтверждение заказа]
+    G18 --> End9([Конец])
+    
+    %% Стили
+    style Start fill:#fff,stroke:#000,stroke-width:2px
+    style End1 fill:#f44,stroke:#000,stroke-width:2px
+    style End2 fill:#f44,stroke:#000,stroke-width:2px
+    style End3 fill:#4f4,stroke:#000,stroke-width:2px
+    style End4 fill:#4f4,stroke:#000,stroke-width:2px
+    style End5 fill:#4f4,stroke:#000,stroke-width:2px
+    style End6 fill:#4f4,stroke:#000,stroke-width:2px
+    style End7 fill:#f44,stroke:#000,stroke-width:2px
+    style End8 fill:#f44,stroke:#000,stroke-width:2px
+    style End9 fill:#4f4,stroke:#000,stroke-width:2px
+    
+    style A1 fill:#e3f2fd,stroke:#000
+    style A3 fill:#e3f2fd,stroke:#000
+    
+    style C1 fill:#fff9c4,stroke:#000
+    style C2 fill:#fff9c4,stroke:#000
+    style C3 fill:#fff9c4,stroke:#000
+    style C5 fill:#fff9c4,stroke:#000
+    style C6 fill:#fff9c4,stroke:#000
+    style C9 fill:#fff9c4,stroke:#000
+    style C10 fill:#fff9c4,stroke:#000
+    
+    style D1 fill:#f3e5f5,stroke:#000
+    style D2 fill:#f3e5f5,stroke:#000
+    style D3 fill:#f3e5f5,stroke:#000
+    style D4 fill:#f3e5f5,stroke:#000
+    
+    style F1 fill:#c8e6c9,stroke:#000
+    style F3 fill:#c8e6c9,stroke:#000
+    style F4 fill:#c8e6c9,stroke:#000
+    style F5 fill:#c8e6c9,stroke:#000
+    style F6 fill:#c8e6c9,stroke:#000
+    
+    style G1 fill:#ffe0b2,stroke:#000
+    style G2 fill:#ffe0b2,stroke:#000
+    style G6 fill:#ffe0b2,stroke:#000
+    style G7 fill:#ffe0b2,stroke:#000
+    style G8 fill:#ffe0b2,stroke:#000
+    style G10 fill:#ffe0b2,stroke:#000
+    style G11 fill:#ffe0b2,stroke:#000
+    style G14 fill:#ffe0b2,stroke:#000
+    style G15 fill:#ffe0b2,stroke:#000
+    style G16 fill:#ffe0b2,stroke:#000
+    style G17 fill:#ffe0b2,stroke:#000
+    style G18 fill:#ffe0b2,stroke:#000
+    
+    style E1 fill:#ffcdd2,stroke:#000
+    style C8 fill:#ffcdd2,stroke:#000
+    style G4 fill:#ffcdd2,stroke:#000
+    style G13 fill:#ffcdd2,stroke:#000
