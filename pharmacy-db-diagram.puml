@@ -1,0 +1,125 @@
+@startuml Pharmacy Database Schema
+
+!define table(x) class x << (T,#FFAAAA) >>
+!define primary_key(x) <b><color:red>x</color></b>
+!define foreign_key(x) <color:blue>x</color>
+
+skinparam classBackgroundColor White
+skinparam classBorderColor Black
+
+title База данных мобильного приложения аптечной сети
+
+table(Пользователи) {
+  primary_key(ID_пользователя) : INTEGER
+  --
+  ФИО : VARCHAR(255)
+  Контактные_данные : VARCHAR(100)
+  Хэшированный_пароль : VARCHAR(255)
+  Баланс_бонусов : DECIMAL(10,2)
+  Язык_интерфейса : ENUM('ru', 'en')
+}
+
+table(Товары) {
+  primary_key(ID_товара) : INTEGER
+  --
+  Наименование : VARCHAR(255)
+  Описание : TEXT
+  Цена : DECIMAL(10,2)
+  Категория : VARCHAR(100)
+  Рецептурный_товар : BOOLEAN
+  Производитель : VARCHAR(255)
+}
+
+table(Аптеки) {
+  primary_key(ID_аптеки) : INTEGER
+  --
+  Адрес : VARCHAR(500)
+  Широта : DECIMAL(10,8)
+  Долгота : DECIMAL(11,8)
+  Контактный_телефон : VARCHAR(20)
+}
+
+table(Наличие) {
+  primary_key(ID_наличия) : INTEGER
+  --
+  foreign_key(ID_товара) : INTEGER
+  foreign_key(ID_аптеки) : INTEGER
+  Количество : INTEGER
+}
+
+table(Заказы) {
+  primary_key(ID_заказа) : INTEGER
+  --
+  foreign_key(ID_пользователя) : INTEGER
+  Статус : ENUM('Создан', 'Принят', 'Готов к выдаче', 'Доставлен', 'Отменён')
+  Способ_получения : ENUM('Самовывоз', 'Доставка')
+  Адрес_доставки : VARCHAR(500)
+  foreign_key(ID_аптеки) : INTEGER
+  Дата_создания : TIMESTAMP
+  Общая_сумма : DECIMAL(10,2)
+}
+
+table(Состав_заказа) {
+  primary_key(ID_состава) : INTEGER
+  --
+  foreign_key(ID_заказа) : INTEGER
+  foreign_key(ID_товара) : INTEGER
+  Количество : INTEGER
+  Цена_на_момент_заказа : DECIMAL(10,2)
+}
+
+table(Уведомления) {
+  primary_key(ID_уведомления) : INTEGER
+  --
+  foreign_key(ID_пользователя) : INTEGER
+  Тип_уведомления : ENUM('статус заказа', 'акция', 'напоминание о приёме')
+  Текст_сообщения : TEXT
+  Признак_прочтения : BOOLEAN
+  Дата_создания : TIMESTAMP
+}
+
+' Связи между таблицами
+Пользователи "1" -- "0..*" Заказы : "оформляет"
+Пользователи "1" -- "0..*" Уведомления : "получает"
+
+Заказы "1" -- "1..*" Состав_заказа : "содержит"
+Заказы "*" -- "0..1" Аптеки : "самовывоз из"
+
+Товары "1" -- "0..*" Состав_заказа : "включает"
+Товары "1" -- "0..*" Наличие : "хранится"
+
+Аптеки "1" -- "0..*" Наличие : "имеет в наличии"
+
+note right of Пользователи
+  <b>Пользователи</b>
+  Клиенты аптечной сети.
+  Хранит данные для авторизации,
+  бонусную программу и настройки
+end note
+
+note right of Товары
+  <b>Товары</b>
+  Каталог лекарств и товаров
+  для здоровья с полным описанием
+  и информацией о производителе
+end note
+
+note bottom of Наличие
+  <b>Наличие</b>
+  Связывает товары с аптеками.
+  Показывает остатки в каждой точке
+end note
+
+note left of Заказы
+  <b>Заказы</b>
+  История заказов пользователей
+  с отслеживанием статуса
+end note
+
+note left of Состав_заказа
+  <b>Состав заказа</b>
+  Детализация заказа.
+  Сохраняет цены на момент покупки
+end note
+
+@enduml
