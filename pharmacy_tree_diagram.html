@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Древовидная диаграмма - Веб-приложение для аптечной сети</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 30px;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+        
+        .intro {
+            max-width: 900px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+        
+        .wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .tree-container {
+            position: relative;
+            width: 820px;
+            height: 700px;
+            margin: 0 auto;
+        }
+        
+        .node {
+            position: absolute;
+            padding: 12px 20px;
+            border: 2px solid #333;
+            border-radius: 50px;
+            background: white;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.3;
+        }
+        
+        .node-large {
+            padding: 15px 30px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .description {
+            margin-top: 30px;
+            padding: 20px;
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 5px;
+        }
+        
+        .description h3 {
+            margin-bottom: 10px;
+            color: #856404;
+        }
+        
+        .description p {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <h1>Древовидная диаграмма причин задержек<br>Разработка веб-приложения для аптечной сети</h1>
+    
+    <div class="intro">
+        <p>На данном этапе выполняется анализ всех факторов, способных увеличить продолжительность разработки, 
+        их систематизация и ранжирование по степени влияния.</p>
+        <p style="margin-top: 10px;">После выявления факторов формируется иерархическая (древовидная) диаграмма 
+        причин задержек, отражающая взаимосвязи между основными и вторичными источниками отклонений во времени 
+        (например, организационные, технические, кадровые, ресурсные и коммуникационные риски).</p>
+    </div>
+    
+    <div class="wrapper">
+        <div class="tree-container">
+            <canvas id="canvas" width="820" height="700"></canvas>
+            
+            <!-- Уровень 1 (верх) -->
+            <div class="node node-large" style="top: 10px; left: 280px; width: 240px;">
+                Интеграция платежных систем
+            </div>
+            
+            <!-- Уровень 2 -->
+            <div class="node" style="top: 80px; left: 560px; width: 140px;">
+                Сложность API
+            </div>
+            
+            <div class="node node-large" style="top: 140px; left: 280px; width: 180px;">
+                Работа с рецептами
+            </div>
+            
+            <!-- Уровень 3 -->
+            <div class="node node-large" style="top: 230px; left: 240px; width: 240px;">
+                Интеграция с ЕГИСЗ
+            </div>
+            
+            <div class="node" style="top: 220px; left: 550px; width: 180px;">
+                Валидация документов
+            </div>
+            
+            <!-- Уровень 4 (центр) -->
+            <div class="node" style="top: 320px; left: 160px; width: 180px;">
+                Выгорание команды разработки
+            </div>
+            
+            <div class="node" style="top: 320px; left: 450px; width: 160px;">
+                Человеческий фактор
+            </div>
+            
+            <!-- Уровень 5 -->
+            <div class="node" style="top: 410px; left: 30px; width: 120px;">
+                Дефицит кадров
+            </div>
+            
+            <div class="node" style="top: 410px; left: 170px; width: 150px;">
+                Затяжные согласования
+            </div>
+            
+            <div class="node" style="top: 410px; left: 480px; width: 150px;">
+                Низкая мотивация
+            </div>
+            
+            <!-- Уровень 6 (низ) -->
+            <div class="node" style="top: 510px; left: 240px; width: 200px;">
+                Недостаточная квалификация
+            </div>
+            
+            <div class="node" style="top: 510px; left: 520px; width: 150px;">
+                Сложность системы
+            </div>
+            
+            <!-- Уровень 7 (самый низ) -->
+            <div class="node" style="top: 610px; left: 340px; width: 240px;">
+                Высокая нагрузка на архитектора
+            </div>
+        </div>
+        
+        <p style="text-align: center; margin-top: 20px; font-style: italic; color: #666;">
+            Рисунок 7 - Древовидная диаграмма
+        </p>
+        
+        <div class="description">
+            <h3>Выявленные причины задержек:</h3>
+            <p><strong>Организационные:</strong> Затяжные согласования, дефицит кадров, высокая нагрузка на архитектора</p>
+            <p><strong>Технические:</strong> Интеграция платежных систем, сложность API, интеграция с ЕГИСЗ</p>
+            <p><strong>Кадровые:</strong> Недостаточная квалификация, выгорание команды, низкая мотивация</p>
+            <p><strong>Процессные:</strong> Валидация электронных рецептов, работа с медицинскими документами</p>
+            <p><strong>Системные:</strong> Сложность архитектуры системы, человеческий фактор</p>
+        </div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        
+        // Функция рисования линии со стрелкой
+        function drawLine(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            
+            // Стрелка
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - 8 * Math.cos(angle - Math.PI / 7), y2 - 8 * Math.sin(angle - Math.PI / 7));
+            ctx.lineTo(x2 - 8 * Math.cos(angle + Math.PI / 7), y2 - 8 * Math.sin(angle + Math.PI / 7));
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        // Связи (снизу вверх)
+        
+        // Низ -> Уровень 6
+        drawLine(460, 610, 350, 560); // Высокая нагрузка -> Недостаточная квалификация
+        drawLine(460, 610, 590, 560); // Высокая нагрузка -> Сложность системы
+        
+        // Уровень 6 -> Уровень 5
+        drawLine(330, 510, 220, 460); // Недостаточная квалификация -> Затяжные согласования
+        drawLine(590, 510, 550, 460); // Сложность -> Низкая мотивация
+        
+        // Уровень 5 -> Уровень 4
+        drawLine(90, 410, 210, 370); // Дефицит -> Выгорание
+        drawLine(240, 410, 230, 370); // Согласования -> Выгорание
+        drawLine(550, 410, 520, 370); // Низкая мотивация -> Человеческий фактор
+        
+        // Уровень 4 -> Уровень 3
+        drawLine(250, 320, 320, 280); // Выгорание -> Интеграция ЕГИСЗ
+        drawLine(520, 320, 630, 280); // Человеческий фактор -> Валидация
+        
+        // Уровень 3 -> Уровень 2
+        drawLine(360, 230, 380, 190); // ЕГИСЗ -> Работа с рецептами
+        drawLine(630, 220, 600, 190); // Валидация -> Работа с рецептами
+        
+        // Уровень 2 -> Уровень 1
+        drawLine(370, 140, 380, 90); // Работа с рецептами -> Интеграция платежей
+        drawLine(640, 80, 520, 60); // Сложность API -> Интеграция платежей
+    </script>
+</body>
+</html>
