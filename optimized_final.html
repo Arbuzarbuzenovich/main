@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сетевой график ПОСЛЕ оптимизации</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            font-size: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .wrapper {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .graph-container {
+            position: relative;
+            width: 1350px;
+            height: 1000px;
+            margin: 0 auto;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .node {
+            position: absolute;
+            width: 250px;
+            border: 2px solid #333;
+            background: white;
+        }
+        
+        .node.critical {
+            background: #ffe6e6;
+        }
+        
+        .node-row1 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 2px solid #333;
+            background: #ddd;
+        }
+        
+        .node-row1 div {
+            padding: 5px 2px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            border-right: 2px solid #333;
+        }
+        
+        .node-row1 div:last-child {
+            border-right: none;
+        }
+        
+        .node-row2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 2px solid #333;
+        }
+        
+        .node-row2 div {
+            padding: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            border-right: 2px solid #333;
+        }
+        
+        .node-row2 div:last-child {
+            border-right: none;
+        }
+        
+        .node-title {
+            padding: 10px 8px;
+            text-align: center;
+            font-size: 10px;
+            line-height: 1.3;
+            border-bottom: 2px solid #333;
+            min-height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .node-row3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .node-row3 div {
+            padding: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            border-right: 2px solid #333;
+        }
+        
+        .node-row3 div:last-child {
+            border-right: none;
+        }
+        
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #d4edda;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сетевой график ПОСЛЕ ОПТИМИЗАЦИИ<br>Разработка веб-приложения для аптечной сети</h1>
+    
+    <div class="wrapper">
+        <div class="graph-container">
+            <canvas id="canvas" width="1350" height="1000"></canvas>
+            
+            <!-- Уровень 1 -->
+            <div class="node critical" style="top: 10px; left: 20px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>0</div><div>20</div><div>20</div></div>
+                <div class="node-title">1. Анализ требований и разработка архитектурных решений</div>
+                <div class="node-row3"><div>0</div><div>0</div><div>20</div></div>
+            </div>
+            
+            <div class="node critical" style="top: 10px; left: 480px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>20</div><div>15</div><div>35</div></div>
+                <div class="node-title">2. Подробное проектирование компонентов системы</div>
+                <div class="node-row3"><div>20</div><div>0</div><div>35</div></div>
+            </div>
+            
+            <!-- Уровень 2 - 4 параллельных -->
+            <div class="node critical" style="top: 200px; left: 20px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>35</div><div>20</div><div>55</div></div>
+                <div class="node-title">3. Реализация серверной инфраструктуры</div>
+                <div class="node-row3"><div>35</div><div>0</div><div>55</div></div>
+            </div>
+            
+            <div class="node" style="top: 200px; left: 280px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>35</div><div>15</div><div>50</div></div>
+                <div class="node-title">4. Разработка модуля коммуникации</div>
+                <div class="node-row3"><div>40</div><div>5</div><div>55</div></div>
+            </div>
+            
+            <div class="node" style="top: 200px; left: 540px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>35</div><div>10</div><div>45</div></div>
+                <div class="node-title">5. Создание клиентских приложений</div>
+                <div class="node-row3"><div>45</div><div>10</div><div>55</div></div>
+            </div>
+            
+            <div class="node" style="top: 200px; left: 800px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>35</div><div>15</div><div>50</div></div>
+                <div class="node-title">6. Проектирование и построение базы данных</div>
+                <div class="node-row3"><div>40</div><div>5</div><div>55</div></div>
+            </div>
+            
+            <!-- Уровень 3 -->
+            <div class="node critical" style="top: 390px; left: 20px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>55</div><div>15</div><div>70</div></div>
+                <div class="node-title">7. Подготовка пользовательской документации</div>
+                <div class="node-row3"><div>55</div><div>0</div><div>70</div></div>
+            </div>
+            
+            <div class="node critical" style="top: 390px; left: 480px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>55</div><div>15</div><div>70</div></div>
+                <div class="node-title">8. Тестирование и отладка прототипа</div>
+                <div class="node-row3"><div>55</div><div>0</div><div>70</div></div>
+            </div>
+            
+            <!-- Уровень 4 -->
+            <div class="node critical" style="top: 580px; left: 350px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>70</div><div>10</div><div>80</div></div>
+                <div class="node-title">9. Пилотная эксплуатация и обучение конечных пользователей</div>
+                <div class="node-row3"><div>70</div><div>0</div><div>80</div></div>
+            </div>
+            
+            <!-- Уровень 5 -->
+            <div class="node critical" style="top: 770px; left: 920px;">
+                <div class="node-row1"><div>Раннее<br>начало</div><div>Длитель-<br>ность</div><div>Раннее<br>окончание</div></div>
+                <div class="node-row2"><div>80</div><div>15</div><div>95</div></div>
+                <div class="node-title">10. Финальная доработка и внедрение системы</div>
+                <div class="node-row3"><div>80</div><div>0</div><div>95</div></div>
+            </div>
+        </div>
+        
+        <div class="info">
+            <h3 style="color: #155724; margin-bottom: 10px;">✅ Критический путь: 1 → 2 → (3, 8) → 7 → 9 → 10</h3>
+            <p><strong>Общая длительность:</strong> 95 дней (сокращение с 165 до 95 дней = экономия 70 дней или 42%)</p>
+        </div>
+    </div>
+    
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        ctx.strokeStyle = '#333';
+        ctx.lineWidth = 2;
+        ctx.fillStyle = '#333';
+        
+        // Функция рисования стрелки
+        function drawArrow(x1, y1, x2, y2) {
+            ctx.beginPath();
+            ctx.moveTo(x1, y1);
+            ctx.lineTo(x2, y2);
+            ctx.stroke();
+            
+            // Наконечник стрелки
+            const angle = Math.atan2(y2 - y1, x2 - x1);
+            ctx.beginPath();
+            ctx.moveTo(x2, y2);
+            ctx.lineTo(x2 - 10 * Math.cos(angle - Math.PI / 6), y2 - 10 * Math.sin(angle - Math.PI / 6));
+            ctx.lineTo(x2 - 10 * Math.cos(angle + Math.PI / 6), y2 - 10 * Math.sin(angle + Math.PI / 6));
+            ctx.closePath();
+            ctx.fill();
+        }
+        
+        // 1 -> 2
+        drawArrow(270, 90, 480, 90);
+        
+        // 2 -> 3, 4, 5, 6
+        drawArrow(550, 160, 145, 200);
+        drawArrow(580, 160, 405, 200);
+        drawArrow(610, 160, 665, 200);
+        drawArrow(680, 160, 925, 200);
+        
+        // 3, 4 -> 7
+        drawArrow(145, 280, 145, 390);
+        drawArrow(405, 280, 170, 390);
+        
+        // 5, 6 -> 8
+        drawArrow(665, 280, 590, 390);
+        drawArrow(925, 280, 615, 390);
+        
+        // 7, 8 -> 9
+        drawArrow(170, 470, 410, 580);
+        drawArrow(590, 470, 440, 580);
+        
+        // 9 -> 10
+        drawArrow(600, 660, 920, 850);
+    </script>
+</body>
+</html>
