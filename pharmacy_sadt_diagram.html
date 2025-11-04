@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SADT Диаграмма - Веб-приложение для аптечной сети</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 30px;
+        }
+        
+        .diagram-container {
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .sadt-block {
+            position: relative;
+            border: 2px solid #2c3e50;
+            padding: 20px;
+            margin: 30px 0;
+            background-color: #ffffff;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .sadt-block h3 {
+            color: #2c3e50;
+            font-size: 18px;
+            text-align: center;
+        }
+        
+        .icom-label {
+            position: absolute;
+            font-size: 12px;
+            background-color: white;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+        
+        .input {
+            left: -310px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-left: 3px solid #3498db;
+        }
+        
+        .control {
+            top: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-top: 3px solid #e74c3c;
+        }
+        
+        .output {
+            right: -310px;
+            top: 50%;
+            transform: translateY(-50%);
+            border-right: 3px solid #27ae60;
+        }
+        
+        .mechanism {
+            bottom: -70px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-bottom: 3px solid #f39c12;
+        }
+        
+        .arrow {
+            position: absolute;
+            width: 30px;
+            height: 2px;
+            background-color: #555;
+        }
+        
+        .arrow-left {
+            left: -30px;
+            top: 50%;
+        }
+        
+        .arrow-top {
+            top: -30px;
+            left: 50%;
+            transform: rotate(90deg);
+        }
+        
+        .arrow-right {
+            right: -30px;
+            top: 50%;
+        }
+        
+        .arrow-bottom {
+            bottom: -30px;
+            left: 50%;
+            transform: rotate(90deg);
+        }
+        
+        .connection {
+            width: 2px;
+            background-color: #555;
+            margin: 0 auto;
+            height: 30px;
+        }
+        
+        .legend {
+            background-color: #ecf0f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 30px;
+        }
+        
+        .legend h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .legend-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: white;
+            border-radius: 4px;
+        }
+        
+        .legend-item strong {
+            display: inline-block;
+            width: 150px;
+            color: #2c3e50;
+        }
+        
+        .label-i { color: #3498db; font-weight: bold; }
+        .label-c { color: #e74c3c; font-weight: bold; }
+        .label-o { color: #27ae60; font-weight: bold; }
+        .label-m { color: #f39c12; font-weight: bold; }
+        
+        @media (max-width: 1200px) {
+            .icom-label {
+                position: static;
+                transform: none;
+                margin: 10px 0;
+                max-width: 100%;
+            }
+            
+            .sadt-block {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>SADT Диаграмма (IDEF0)<br>Веб-приложение для аптечной сети</h1>
+    
+    <div class="diagram-container">
+        <!-- Блок 1: Авторизация -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> Данные пользователя (логин, пароль)
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> Политика безопасности, правила доступа
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Аутентифицированный пользователь, токен доступа
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> Сервер аутентификации, база данных пользователей
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Авторизация пользователя</h3>
+        </div>
+        
+        <div class="connection"></div>
+        
+        <!-- Блок 2: Поиск и выбор лекарств -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> Запрос пользователя, фильтры поиска, рецепт
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> Каталог препаратов, ограничения продаж (рецептурные)
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Список найденных препаратов, наличие в аптеках
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> База данных препаратов, поисковая система
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Поиск и выбор лекарств</h3>
+        </div>
+        
+        <div class="connection"></div>
+        
+        <!-- Блок 3: Управление рецептами -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> Скан/фото рецепта, данные врача и пациента
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> Стандарты электронных рецептов, сроки действия
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Валидированный рецепт, статус проверки
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> Система OCR, база данных рецептов
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Управление рецептами</h3>
+        </div>
+        
+        <div class="connection"></div>
+        
+        <!-- Блок 4: Оформление заказа -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> Корзина товаров, адрес доставки, способ оплаты
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> Правила доставки, минимальная сумма заказа
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Подтвержденный заказ, номер заказа, чек
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> Система управления заказами, платежный шлюз
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Оформление заказа</h3>
+        </div>
+        
+        <div class="connection"></div>
+        
+        <!-- Блок 5: Система рекомендаций -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> История покупок, текущий заказ, симптомы
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> Алгоритмы рекомендаций, правила совместимости
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Персональные рекомендации, аналоги препаратов
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> ML-модель, аналитическая платформа
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Система рекомендаций</h3>
+        </div>
+        
+        <div class="connection"></div>
+        
+        <!-- Блок 6: Пользовательский интерфейс -->
+        <div class="sadt-block">
+            <div class="icom-label input">
+                <span class="label-i">I:</span> Действия пользователя (клики, ввод, навигация)
+            </div>
+            <div class="icom-label control">
+                <span class="label-c">C:</span> UX/UI стандарты, требования доступности
+            </div>
+            <div class="icom-label output">
+                <span class="label-o">O:</span> Визуализация данных, уведомления, обратная связь
+            </div>
+            <div class="icom-label mechanism">
+                <span class="label-m">M:</span> Веб/мобильное приложение (React, Flutter)
+            </div>
+            <div class="arrow arrow-left"></div>
+            <div class="arrow arrow-top"></div>
+            <div class="arrow arrow-right"></div>
+            <div class="arrow arrow-bottom"></div>
+            <h3>Пользовательский интерфейс</h3>
+        </div>
+    </div>
+    
+    <div class="diagram-container legend">
+        <h2>Легенда SADT (IDEF0)</h2>
+        
+        <div class="legend-item">
+            <strong class="label-i">I (Input):</strong>
+            Входные данные — информация или ресурсы, которые преобразуются в процессе
+        </div>
+        
+        <div class="legend-item">
+            <strong class="label-c">C (Control):</strong>
+            Управление — правила, стандарты, ограничения, которые регулируют процесс
+        </div>
+        
+        <div class="legend-item">
+            <strong class="label-o">O (Output):</strong>
+            Выходные данные — результаты выполнения процесса
+        </div>
+        
+        <div class="legend-item">
+            <strong class="label-m">M (Mechanism):</strong>
+            Механизмы — ресурсы, инструменты, системы, которые выполняют процесс
+        </div>
+        
+        <h2 style="margin-top: 30px;">Описание процессов</h2>
+        
+        <div class="legend-item">
+            <strong>1. Авторизация:</strong>
+            Процесс входа пользователя в систему с проверкой учетных данных и выдачей токена доступа
+        </div>
+        
+        <div class="legend-item">
+            <strong>2. Поиск и выбор:</strong>
+            Поиск лекарственных препаратов по запросу с учетом наличия в аптеках и ограничений на продажу
+        </div>
+        
+        <div class="legend-item">
+            <strong>3. Управление рецептами:</strong>
+            Загрузка, распознавание и валидация электронных рецептов для рецептурных препаратов
+        </div>
+        
+        <div class="legend-item">
+            <strong>4. Оформление заказа:</strong>
+            Создание и подтверждение заказа с выбором способа получения и оплаты
+        </div>
+        
+        <div class="legend-item">
+            <strong>5. Система рекомендаций:</strong>
+            Генерация персональных рекомендаций на основе истории и текущего заказа
+        </div>
+        
+        <div class="legend-item">
+            <strong>6. Пользовательский интерфейс:</strong>
+            Взаимодействие с пользователем через веб или мобильное приложение
+        </div>
+    </div>
+</body>
+</html>
