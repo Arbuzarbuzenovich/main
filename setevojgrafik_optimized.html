@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сетевой график ПОСЛЕ оптимизации</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f0f0;
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+            font-size: 20px;
+        }
+        
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            overflow-x: auto;
+        }
+        
+        .canvas {
+            position: relative;
+            width: 2000px;
+            height: 1200px;
+            margin: 0 auto;
+        }
+        
+        .box {
+            position: absolute;
+            width: 320px;
+            border: 3px solid #000;
+            background: #fff;
+            z-index: 100;
+        }
+        
+        .box.crit {
+            background: #ffdddd;
+        }
+        
+        .box-header {
+            display: flex;
+            border-bottom: 3px solid #000;
+            background: #ddd;
+        }
+        
+        .box-header div {
+            flex: 1;
+            padding: 8px 4px;
+            text-align: center;
+            font-size: 9px;
+            font-weight: bold;
+            border-right: 3px solid #000;
+        }
+        
+        .box-header div:last-child {
+            border-right: none;
+        }
+        
+        .box-numbers-top {
+            display: flex;
+            border-bottom: 3px solid #000;
+        }
+        
+        .box-numbers-top div {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            border-right: 3px solid #000;
+        }
+        
+        .box-numbers-top div:last-child {
+            border-right: none;
+        }
+        
+        .box-text {
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 12px;
+            min-height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid #000;
+        }
+        
+        .box-numbers-bottom {
+            display: flex;
+        }
+        
+        .box-numbers-bottom div {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            font-size: 15px;
+            font-weight: bold;
+            border-right: 3px solid #000;
+        }
+        
+        .box-numbers-bottom div:last-child {
+            border-right: none;
+        }
+        
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+        }
+        
+        .summary {
+            margin-top: 40px;
+            padding: 25px;
+            background: #d4edda;
+            border-radius: 8px;
+        }
+        
+        .summary h2 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .summary p {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>СЕТЕВОЙ ГРАФИК ПОСЛЕ ОПТИМИЗАЦИИ<br>Разработка веб-приложения для аптечной сети</h1>
+    
+    <div class="container">
+        <div class="canvas">
+            <svg>
+                <defs>
+                    <marker id="arrowhead" markerWidth="12" markerHeight="12" refX="10" refY="4" orient="auto">
+                        <polygon points="0 0, 12 4, 0 8" fill="#000" />
+                    </marker>
+                </defs>
+                
+                <!-- Ряд 1: 1 -> 2 -->
+                <line x1="330" y1="100" x2="650" y2="100" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                
+                <!-- Ряд 2: 2 -> 3,4,5,6 -->
+                <line x1="820" y1="190" x2="330" y2="310" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="850" y1="190" x2="710" y2="310" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="880" y1="190" x2="1090" y2="310" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="970" y1="190" x2="1470" y2="310" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                
+                <!-- Ряд 3: 3,4 -> 7 и 5,6 -> 8 -->
+                <line x1="330" y1="400" x2="330" y2="520" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="710" y1="400" x2="380" y2="520" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                
+                <line x1="1090" y1="400" x2="1010" y2="520" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="1470" y1="400" x2="1060" y2="520" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                
+                <!-- Ряд 4: 7,8 -> 9 -->
+                <line x1="350" y1="610" x2="760" y2="730" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                <line x1="1010" y1="610" x2="860" y2="730" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+                
+                <!-- Ряд 5: 9 -> 10 -->
+                <line x1="860" y1="820" x2="1320" y2="940" stroke="#000" stroke-width="3" marker-end="url(#arrowhead)" />
+            </svg>
+            
+            <!-- РЯДЫ БЛОКОВ -->
+            
+            <!-- РЯД 1 -->
+            <div class="box crit" style="top: 15px; left: 10px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>0</div><div>20</div><div>20</div>
+                </div>
+                <div class="box-text">1. Анализ требований и разработка архитектурных решений</div>
+                <div class="box-numbers-bottom">
+                    <div>0</div><div>0</div><div>20</div>
+                </div>
+            </div>
+            
+            <div class="box crit" style="top: 15px; left: 660px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>20</div><div>15</div><div>35</div>
+                </div>
+                <div class="box-text">2. Подробное проектирование компонентов системы</div>
+                <div class="box-numbers-bottom">
+                    <div>20</div><div>0</div><div>35</div>
+                </div>
+            </div>
+            
+            <!-- РЯД 2 - 4 параллельных блока -->
+            <div class="box crit" style="top: 220px; left: 10px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>35</div><div>20</div><div>55</div>
+                </div>
+                <div class="box-text">3. Реализация серверной инфраструктуры</div>
+                <div class="box-numbers-bottom">
+                    <div>35</div><div>0</div><div>55</div>
+                </div>
+            </div>
+            
+            <div class="box" style="top: 220px; left: 390px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>35</div><div>15</div><div>50</div>
+                </div>
+                <div class="box-text">4. Разработка модуля коммуникации</div>
+                <div class="box-numbers-bottom">
+                    <div>40</div><div>5</div><div>55</div>
+                </div>
+            </div>
+            
+            <div class="box" style="top: 220px; left: 770px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>35</div><div>10</div><div>45</div>
+                </div>
+                <div class="box-text">5. Создание клиентских приложений</div>
+                <div class="box-numbers-bottom">
+                    <div>45</div><div>10</div><div>55</div>
+                </div>
+            </div>
+            
+            <div class="box" style="top: 220px; left: 1150px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>35</div><div>15</div><div>50</div>
+                </div>
+                <div class="box-text">6. Проектирование и построение базы данных</div>
+                <div class="box-numbers-bottom">
+                    <div>40</div><div>5</div><div>55</div>
+                </div>
+            </div>
+            
+            <!-- РЯД 3 - 2 блока -->
+            <div class="box crit" style="top: 430px; left: 10px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>55</div><div>15</div><div>70</div>
+                </div>
+                <div class="box-text">7. Подготовка пользовательской документации</div>
+                <div class="box-numbers-bottom">
+                    <div>55</div><div>0</div><div>70</div>
+                </div>
+            </div>
+            
+            <div class="box crit" style="top: 430px; left: 690px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>55</div><div>15</div><div>70</div>
+                </div>
+                <div class="box-text">8. Тестирование и отладка прототипа</div>
+                <div class="box-numbers-bottom">
+                    <div>55</div><div>0</div><div>70</div>
+                </div>
+            </div>
+            
+            <!-- РЯД 4 - 1 блок по центру -->
+            <div class="box crit" style="top: 640px; left: 540px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>70</div><div>10</div><div>80</div>
+                </div>
+                <div class="box-text">9. Пилотная эксплуатация и обучение конечных пользователей</div>
+                <div class="box-numbers-bottom">
+                    <div>70</div><div>0</div><div>80</div>
+                </div>
+            </div>
+            
+            <!-- РЯД 5 - 1 блок справа -->
+            <div class="box crit" style="top: 850px; left: 1330px;">
+                <div class="box-header">
+                    <div>Раннее<br>начало</div>
+                    <div>Длитель-<br>ность</div>
+                    <div>Раннее<br>окончание</div>
+                </div>
+                <div class="box-numbers-top">
+                    <div>80</div><div>15</div><div>95</div>
+                </div>
+                <div class="box-text">10. Финальная доработка и внедрение системы</div>
+                <div class="box-numbers-bottom">
+                    <div>80</div><div>0</div><div>95</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary">
+            <h2>✅ Результаты оптимизации</h2>
+            <p><strong>Критический путь:</strong> 1 → 2 → (3, 8) → 7 → 9 → 10</p>
+            <p><strong>Общая длительность проекта:</strong> 95 дней</p>
+            <p><strong>Экономия времени:</strong> 70 дней (с 165 до 95 дней) - сокращение на 42%</p>
+            <p><strong>Параллельное выполнение:</strong> Задачи 3, 4, 5, 6 выполняются одновременно</p>
+        </div>
+    </div>
+</body>
+</html>
