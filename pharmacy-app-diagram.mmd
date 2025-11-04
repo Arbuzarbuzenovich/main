@@ -1,0 +1,53 @@
+graph TB
+    User([Пользователь])
+    Pharmacist([Фармацевт])
+    
+    subgraph UI["UI"]
+        Mobile["Мобильное приложение<br/>(iOS/Android)"]
+    end
+    
+    Support["Служба поддержки"]
+    
+    DB[(База данных<br/>• Каталог лекарств<br/>• Заказы<br/>• Пользователи<br/>• История покупок<br/>• Остатки в аптеках)]
+    
+    subgraph ServerLogic["Серверная логика"]
+        API["API-сервер"]
+    end
+    
+    PaymentGateway["Платёжный шлюз /<br/>Процессинг"]
+    PaymentSystems["Платёжные системы:<br/>Visa, МИР, MasterCard,<br/>Электронные кошельки"]
+    
+    PharmacySystem["Система управления<br/>аптеками"]
+    Warehouse["Складская система /<br/>Инвентаризация"]
+    PrescriptionSystem["Система электронных<br/>рецептов / ЕГИСЗ"]
+    
+    User -->|"Поиск лекарств,<br/>оформление заказа,<br/>бронирование"| Mobile
+    Pharmacist -->|"Управление заказами,<br/>выдача товаров"| PharmacySystem
+    
+    User -->|Сообщения| Support
+    Support -->|Данные обращений| DB
+    
+    Mobile -->|"API-запросы: поиск,<br/>заказы, бронирование,<br/>история покупок"| API
+    API -->|Данные в UI| Mobile
+    
+    API -->|Запрос платежа| PaymentGateway
+    PaymentGateway -->|Обработка/Ответ| PaymentSystems
+    
+    API <-->|"Доступность<br/>лекарств в аптеках"| PharmacySystem
+    PharmacySystem <-->|Данные об остатках| Warehouse
+    
+    API <-->|Проверка рецептов| PrescriptionSystem
+    
+    API <-->|Запросы данных| DB
+    
+    style User fill:#fff,stroke:#000
+    style Pharmacist fill:#fff,stroke:#000
+    style DB fill:#fff,stroke:#000
+    style Mobile fill:#fff,stroke:#000
+    style API fill:#fff,stroke:#000
+    style Support fill:#fff,stroke:#000
+    style PaymentGateway fill:#fff,stroke:#000
+    style PaymentSystems fill:#fff,stroke:#000
+    style PharmacySystem fill:#fff,stroke:#000
+    style Warehouse fill:#fff,stroke:#000
+    style PrescriptionSystem fill:#fff,stroke:#000

@@ -1,0 +1,56 @@
+@startuml Pharmacy App Architecture
+
+skinparam rectangleBackgroundColor White
+skinparam rectangleBorderColor Black
+skinparam databaseBackgroundColor White
+skinparam databaseBorderColor Black
+skinparam actorBackgroundColor White
+skinparam actorBorderColor Black
+
+title Архитектура мобильного приложения для аптечной сети
+
+actor "Пользователь" as user
+actor "Фармацевт" as pharmacist
+
+rectangle "UI" {
+  rectangle "Мобильное приложение\n(iOS/Android)" as mobile
+}
+
+rectangle "Служба поддержки" as support
+
+database "База данных" as db
+
+rectangle "Серверная логика" {
+  rectangle "API-сервер" as api
+}
+
+rectangle "Платёжный шлюз /\nПроцессинг" as payment
+
+rectangle "Платёжные системы:\nVisa, МИР, MasterCard,\nЭлектронные кошельки" as paymentSystems
+
+rectangle "Система управления\nаптеками" as pharmacySystem
+
+rectangle "Складская система /\nИнвентаризация" as warehouse
+
+rectangle "Система электронных\nрецептов / ЕГИСЗ" as prescription
+
+user --> mobile : "Поиск лекарств,\nоформление заказа,\nбронирование"
+pharmacist --> pharmacySystem : "Управление заказами,\nвыдача товаров"
+
+user --> support : "Сообщения"
+support --> db : "Данные обращений"
+
+mobile --> api : "API-запросы: поиск,\nзаказы, бронирование,\nистория покупок"
+api --> db : "Данные в UI"
+
+api --> payment : "Запрос платежа"
+payment --> paymentSystems : "Обработка/Ответ"
+
+api --> pharmacySystem : "Доступность\nлекарств в аптеках"
+pharmacySystem --> warehouse : "Данные об остатках"
+
+api --> prescription : "Проверка рецептов"
+
+db ..> db : "Хранение:\n- Каталог лекарств\n- Заказы\n- Пользователи\n- История покупок\n- Остатки в аптеках"
+
+@enduml
