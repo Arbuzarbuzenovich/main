@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Древовидная диаграмма - Веб-приложение для аптечной сети</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 30px;
+            margin: 0;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 22px;
+        }
+        
+        .intro {
+            max-width: 1000px;
+            margin: 0 auto 30px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            line-height: 1.6;
+        }
+        
+        .diagram-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .mermaid {
+            text-align: center;
+        }
+        
+        .description {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #fff3cd;
+            border-left: 4px solid #ffc107;
+            border-radius: 4px;
+        }
+        
+        .description h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .description ul {
+            line-height: 1.8;
+            margin-left: 20px;
+        }
+        
+        .description li {
+            margin: 8px 0;
+        }
+        
+        .figure-caption {
+            text-align: center;
+            font-style: italic;
+            color: #666;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Древовидная диаграмма причин задержек разработки<br>Веб-приложение для аптечной сети</h1>
+    
+    <div class="intro">
+        <p>На данном этапе выполняется анализ всех факторов, способных увеличить продолжительность разработки, 
+        их систематизация и ранжирование по степени влияния.</p>
+        <p style="margin-top: 10px;">После выявления факторов формируется иерархическая (древовидная) диаграмма 
+        причин задержек, отражающая взаимосвязи между основными и вторичными источниками отклонений во времени 
+        (например, организационные, технические, кадровые, ресурсные и коммуникационные риски).</p>
+    </div>
+    
+    <div class="diagram-container">
+        <div class="mermaid">
+graph TD
+    Root((Причины задержек<br/>разработки))
+    
+    A1((Интеграция<br/>платежных систем))
+    A2((Сложность API))
+    
+    B1((Работа с<br/>электронными<br/>рецептами))
+    B2((Человеческий<br/>фактор))
+    
+    C1((Интеграция<br/>с ЕГИСЗ))
+    C2((Валидация<br/>документов))
+    C3((Выгорание<br/>команды))
+    C4((Низкая<br/>мотивация))
+    
+    D1((Дефицит<br/>кадров))
+    D2((Затяжные<br/>согласования))
+    D3((Недостаточная<br/>квалификация))
+    D4((Сложность<br/>архитектуры))
+    
+    E1((Высокая нагрузка<br/>на ключевых<br/>специалистов))
+    
+    Root --> A1
+    Root --> A2
+    
+    A1 --> B1
+    A2 --> B1
+    A1 --> B2
+    
+    B1 --> C1
+    B1 --> C2
+    B2 --> C3
+    B2 --> C4
+    
+    C1 --> D1
+    C2 --> D1
+    C1 --> D2
+    C3 --> D2
+    C4 --> D3
+    C4 --> D4
+    
+    D2 --> E1
+    D3 --> E1
+    D4 --> E1
+    
+    style Root fill:#ff9999,stroke:#333,stroke-width:3px
+    style A1 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style A2 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style B1 fill:#ffe6cc,stroke:#333,stroke-width:2px
+    style B2 fill:#ffe6cc,stroke:#333,stroke-width:2px
+    style C1 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C2 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C3 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C4 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style D1 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D2 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D3 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D4 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style E1 fill:#ccffcc,stroke:#333,stroke-width:2px
+        </div>
+        
+        <p class="figure-caption">Рисунок 7 - Древовидная диаграмма причин задержек</p>
+        
+        <div class="description">
+            <h2>Выявленные категории причин задержек:</h2>
+            
+            <ul>
+                <li><strong>Организационные риски:</strong>
+                    <ul>
+                        <li>Затяжные согласования требований и изменений</li>
+                        <li>Дефицит квалифицированных кадров на рынке</li>
+                        <li>Высокая нагрузка на ключевых специалистов (архитекторов, тимлидов)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Технические риски:</strong>
+                    <ul>
+                        <li>Сложность интеграции с платежными системами (ЮKassa, Сбербанк)</li>
+                        <li>Интеграция с ЕГИСЗ (Единая государственная информационная система здравоохранения)</li>
+                        <li>Работа с электронными рецептами и медицинской документацией</li>
+                        <li>Сложность API внешних систем</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Кадровые риски:</strong>
+                    <ul>
+                        <li>Выгорание команды разработки при длительных проектах</li>
+                        <li>Недостаточная квалификация в специфических областях (медицина, фармацевтика)</li>
+                        <li>Низкая мотивация команды</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Процессные риски:</strong>
+                    <ul>
+                        <li>Валидация электронных рецептов и медицинских документов</li>
+                        <li>Необходимость соблюдения регуляторных требований (152-ФЗ, приказы Минздрава)</li>
+                    </ul>
+                </li>
+                
+                <li><strong>Системные риски:</strong>
+                    <ul>
+                        <li>Сложность общей архитектуры системы</li>
+                        <li>Человеческий фактор в процессе разработки</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h2 style="margin-top: 20px;">Рекомендации по минимизации рисков:</h2>
+            <ul>
+                <li>✓ Привлечение консультантов по медицинским системам на ранних этапах</li>
+                <li>✓ Раннее начало работы с интеграциями (ЕГИСЗ, платежные системы)</li>
+                <li>✓ Создание прототипов для валидации сложных требований</li>
+                <li>✓ Регулярные ретроспективы и забота о команде для предотвращения выгорания</li>
+                <li>✓ Обучение команды специфике фармацевтической отрасли</li>
+                <li>✓ Автоматизация процессов согласования через системы трекинга</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+            flowchart: {
+                useMaxWidth: false,
+                htmlLabels: true,
+                curve: 'basis'
+            }
+        });
+    </script>
+</body>
+</html>

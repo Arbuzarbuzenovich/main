@@ -1,0 +1,68 @@
+graph TD
+    Root((Причины задержек<br>разработки))
+    
+    subgraph Уровень1[" "]
+        A1((Интеграция<br>платежных систем))
+        A2((Сложность API))
+    end
+    
+    subgraph Уровень2[" "]
+        B1((Работа с<br>рецептами))
+        B2((Человеческий<br>фактор))
+    end
+    
+    subgraph Уровень3[" "]
+        C1((Интеграция<br>с ЕГИСЗ))
+        C2((Валидация<br>документов))
+        C3((Выгорание<br>команды))
+        C4((Низкая<br>мотивация))
+    end
+    
+    subgraph Уровень4[" "]
+        D1((Дефицит<br>кадров))
+        D2((Затяжные<br>согласования))
+        D3((Недостаточная<br>квалификация))
+        D4((Сложность<br>системы))
+    end
+    
+    subgraph Уровень5[" "]
+        E1((Высокая нагрузка<br>на архитектора))
+    end
+    
+    Root --> A1
+    Root --> A2
+    
+    A1 --> B1
+    A2 --> B1
+    A1 --> B2
+    
+    B1 --> C1
+    B1 --> C2
+    B2 --> C3
+    B2 --> C4
+    
+    C1 --> D1
+    C2 --> D1
+    C1 --> D2
+    C3 --> D2
+    C4 --> D3
+    C4 --> D4
+    
+    D2 --> E1
+    D3 --> E1
+    D4 --> E1
+    
+    style Root fill:#ff9999,stroke:#333,stroke-width:3px
+    style A1 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style A2 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style B1 fill:#ffe6cc,stroke:#333,stroke-width:2px
+    style B2 fill:#ffe6cc,stroke:#333,stroke-width:2px
+    style C1 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C2 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C3 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style C4 fill:#ffffcc,stroke:#333,stroke-width:2px
+    style D1 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D2 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D3 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style D4 fill:#e6ffcc,stroke:#333,stroke-width:2px
+    style E1 fill:#ccffcc,stroke:#333,stroke-width:2px
