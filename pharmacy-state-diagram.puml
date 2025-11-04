@@ -1,0 +1,93 @@
+@startuml Order State Diagram
+
+skinparam state {
+  BackgroundColor White
+  BorderColor Black
+  ArrowColor Black
+}
+
+title Диаграмма переходов состояний заказа в аптечном приложении
+
+[*] --> Создан : Пользователь\nоформляет заказ
+
+state "Создан" as created
+state "Ожидает оплаты" as pending_payment
+state "Оплачен" as paid
+state "Принят в обработку" as processing
+state "Готовится" as preparing
+state "Готов к выдаче" as ready_pickup
+state "Готов к доставке" as ready_delivery
+state "В доставке" as delivering
+state "Выдан" as picked_up
+state "Доставлен" as delivered
+state "Завершён" as completed
+state "Отменён" as cancelled
+
+created --> pending_payment : Выбран способ\nоплаты онлайн
+created --> processing : Выбрана оплата\nпри получении
+created --> cancelled : Пользователь\nотменяет заказ
+
+pending_payment --> paid : Платёж\nуспешно проведён
+pending_payment --> cancelled : Ошибка оплаты\nили тайм-аут
+
+paid --> processing : Аптека получает\nуведомление
+processing --> preparing : Фармацевт\nначинает сборку
+
+preparing --> ready_pickup : Заказ собран\n(самовывоз)
+preparing --> ready_delivery : Заказ собран\n(доставка)
+preparing --> cancelled : Товара нет\nв наличии
+
+ready_pickup --> picked_up : Клиент забрал\nзаказ в аптеке
+ready_pickup --> cancelled : Клиент не забрал\nв течение 3 дней
+
+ready_delivery --> delivering : Курьер принял\nзаказ
+delivering --> delivered : Курьер доставил\nклиенту
+delivering --> ready_delivery : Неудачная\nпопытка доставки
+
+picked_up --> completed : Заказ\nподтверждён
+delivered --> completed : Заказ\nподтверждён
+
+completed --> [*]
+cancelled --> [*]
+
+note right of created
+  Начальное состояние.
+  Заказ только что создан
+end note
+
+note right of pending_payment
+  Ожидание платежа
+  от платёжной системы
+end note
+
+note left of processing
+  Аптека проверяет
+  наличие товаров
+end note
+
+note left of preparing
+  Фармацевт собирает
+  заказ, проверяет рецепты
+end note
+
+note bottom of ready_pickup
+  Push-уведомление
+  клиенту о готовности
+end note
+
+note bottom of delivering
+  Трекинг доставки
+  в реальном времени
+end note
+
+note right of cancelled
+  Конечное состояние.
+  Возврат средств (если оплачен)
+end note
+
+note right of completed
+  Конечное состояние.
+  Начисление бонусов
+end note
+
+@enduml
