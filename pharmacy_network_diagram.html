@@ -37,7 +37,17 @@
         .network-graph {
             position: relative;
             min-width: 1600px;
-            min-height: 1000px;
+            min-height: 1100px;
+        }
+        
+        svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
         }
         
         .task-node {
@@ -45,6 +55,7 @@
             border: 2px solid #2c3e50;
             background-color: white;
             width: 250px;
+            z-index: 10;
         }
         
         .task-header {
@@ -101,25 +112,6 @@
             grid-template-columns: 1fr 1fr 1fr;
         }
         
-        .arrow {
-            position: absolute;
-            height: 2px;
-            background-color: #2c3e50;
-            transform-origin: left center;
-        }
-        
-        .arrow::after {
-            content: '';
-            position: absolute;
-            right: -8px;
-            top: -4px;
-            width: 0;
-            height: 0;
-            border-left: 10px solid #2c3e50;
-            border-top: 5px solid transparent;
-            border-bottom: 5px solid transparent;
-        }
-        
         .critical-path {
             background-color: #ffe6e6;
         }
@@ -141,6 +133,12 @@
             margin: 8px 0;
             font-size: 14px;
         }
+        
+        line.arrow-line {
+            stroke: #2c3e50;
+            stroke-width: 2;
+            marker-end: url(#arrowhead);
+        }
     </style>
 </head>
 <body>
@@ -148,6 +146,45 @@
     
     <div class="container">
         <div class="network-graph">
+            <!-- SVG для стрелок -->
+            <svg>
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#2c3e50" />
+                    </marker>
+                </defs>
+                
+                <!-- Стрелка 1 -> 2 -->
+                <line class="arrow-line" x1="310" y1="110" x2="440" y2="110" />
+                
+                <!-- Стрелка 2 -> 3 -->
+                <line class="arrow-line" x1="575" y1="200" x2="445" y2="320" />
+                
+                <!-- Стрелка 2 -> 4 -->
+                <line class="arrow-line" x1="710" y1="200" x2="850" y2="320" />
+                
+                <!-- Стрелка 3 -> 5 -->
+                <line class="arrow-line" x1="570" y1="410" x2="640" y2="530" />
+                
+                <!-- Стрелка 4 -> 5 -->
+                <line class="arrow-line" x1="900" y1="410" x2="840" y2="530" />
+                
+                <!-- Стрелка 5 -> 6 -->
+                <line class="arrow-line" x1="865" y1="620" x2="920" y2="740" />
+                
+                <!-- Стрелка 5 -> 7 -->
+                <line class="arrow-line" x1="620" y1="620" x2="500" y2="740" />
+                
+                <!-- Стрелка 6 -> 8 -->
+                <line class="arrow-line" x1="1020" y1="830" x2="1020" y2="850" />
+                
+                <!-- Стрелка 7 -> 8 -->
+                <line class="arrow-line" x1="500" y1="830" x2="890" y2="940" />
+                
+                <!-- Стрелка 8 -> 9 -->
+                <line class="arrow-line" x1="1150" y1="940" x2="1240" y2="940" />
+            </svg>
+            
             <!-- Задача 1 -->
             <div class="task-node critical-path" style="top: 20px; left: 50px;">
                 <div class="task-header">
@@ -167,9 +204,6 @@
                     <div class="task-time-cell">20</div>
                 </div>
             </div>
-            
-            <!-- Стрелка 1->2 -->
-            <div class="arrow" style="top: 110px; left: 305px; width: 130px;"></div>
             
             <!-- Задача 2 -->
             <div class="task-node critical-path" style="top: 20px; left: 450px;">
@@ -191,11 +225,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 2->3 -->
-            <div class="arrow" style="top: 110px; left: 705px; width: 100px; transform: rotate(30deg);"></div>
-            
             <!-- Задача 3 -->
-            <div class="task-node critical-path" style="top: 230px; left: 320px;">
+            <div class="task-node critical-path" style="top: 320px; left: 190px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -214,11 +245,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 2->4 -->
-            <div class="arrow" style="top: 110px; left: 705px; width: 100px; transform: rotate(-30deg);"></div>
-            
             <!-- Задача 4 -->
-            <div class="task-node" style="top: 230px; left: 800px;">
+            <div class="task-node" style="top: 320px; left: 850px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -237,14 +265,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 3->5 -->
-            <div class="arrow" style="top: 320px; left: 575px; width: 100px;"></div>
-            
-            <!-- Стрелка 4->5 -->
-            <div class="arrow" style="top: 320px; left: 1055px; width: 100px; transform: rotate(150deg);"></div>
-            
             <!-- Задача 5 -->
-            <div class="task-node critical-path" style="top: 440px; left: 560px;">
+            <div class="task-node critical-path" style="top: 530px; left: 590px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -263,11 +285,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 5->6 -->
-            <div class="arrow" style="top: 530px; left: 815px; width: 90px; transform: rotate(25deg);"></div>
-            
             <!-- Задача 6 -->
-            <div class="task-node critical-path" style="top: 650px; left: 850px;">
+            <div class="task-node critical-path" style="top: 740px; left: 895px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -286,11 +305,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 5->7 -->
-            <div class="arrow" style="top: 530px; left: 815px; width: 90px; transform: rotate(-25deg);"></div>
-            
             <!-- Задача 7 -->
-            <div class="task-node" style="top: 650px; left: 320px;">
+            <div class="task-node" style="top: 740px; left: 240px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -309,14 +325,8 @@
                 </div>
             </div>
             
-            <!-- Стрелка 6->8 -->
-            <div class="arrow" style="top: 740px; left: 1105px; width: 100px;"></div>
-            
-            <!-- Стрелка 7->8 -->
-            <div class="arrow" style="top: 740px; left: 575px; width: 100px; transform: rotate(30deg);"></div>
-            
             <!-- Задача 8 -->
-            <div class="task-node critical-path" style="top: 850px; left: 850px;">
+            <div class="task-node critical-path" style="top: 850px; left: 895px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее начало</div>
                     <div class="task-header-cell">Длительность</div>
@@ -334,9 +344,6 @@
                     <div class="task-time-cell">125</div>
                 </div>
             </div>
-            
-            <!-- Стрелка 8->9 -->
-            <div class="arrow" style="top: 940px; left: 1105px; width: 130px;"></div>
             
             <!-- Задача 9 -->
             <div class="task-node critical-path" style="top: 850px; left: 1250px;">
