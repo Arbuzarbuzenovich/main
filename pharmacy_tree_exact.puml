@@ -1,0 +1,50 @@
+@startuml Древовидная диаграмма - Веб-приложение для аптечной сети
+
+skinparam backgroundColor #FFFFFF
+
+title Древовидная диаграмма причин задержек
+
+' Определяем стиль овалов
+skinparam usecase {
+    BackgroundColor White
+    BorderColor Black
+    BorderThickness 2
+    FontSize 11
+}
+
+' Узлы диаграммы (овалы) - используем usecase для овальной формы
+usecase (Квалификация команды) as A1
+usecase (Нижняя мотивация) as A2
+
+usecase (Человеческий фактор) as B1
+
+usecase (Интеграция с\nгосударственными\nсервисами (ЕГИСЗ)) as C1
+
+usecase (Выгорание разработчиков) as D1
+usecase (Идеологически сложная\nархитектура) as D2
+
+usecase (Дефицит кадров) as E1
+usecase (Затратные согласования) as E2
+usecase (Недостаточная мощность\nплатформы) as F1
+usecase (Сложность системы) as F2
+
+' Связи между узлами (снизу вверх)
+E1 -up-> D1
+E2 -up-> D1
+D1 -up-> C1
+
+D2 -up-> C1
+D2 -up-> F1
+D2 -up-> F2
+
+C1 -up-> B1
+
+B1 -up-> A1
+F1 -up-> A2
+F2 -up-> A2
+
+note bottom
+  Рисунок 7 - Древовидная диаграмма
+end note
+
+@enduml
