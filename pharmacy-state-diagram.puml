@@ -50,44 +50,4 @@ delivered --> completed : Заказ\nподтверждён
 completed --> [*]
 cancelled --> [*]
 
-note right of created
-  Начальное состояние.
-  Заказ только что создан
-end note
-
-note right of pending_payment
-  Ожидание платежа
-  от платёжной системы
-end note
-
-note left of processing
-  Аптека проверяет
-  наличие товаров
-end note
-
-note left of preparing
-  Фармацевт собирает
-  заказ, проверяет рецепты
-end note
-
-note bottom of ready_pickup
-  Push-уведомление
-  клиенту о готовности
-end note
-
-note bottom of delivering
-  Трекинг доставки
-  в реальном времени
-end note
-
-note right of cancelled
-  Конечное состояние.
-  Возврат средств (если оплачен)
-end note
-
-note right of completed
-  Конечное состояние.
-  Начисление бонусов
-end note
-
 @enduml
