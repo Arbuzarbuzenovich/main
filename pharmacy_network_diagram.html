@@ -35,7 +35,7 @@
         
         .network-graph {
             position: relative;
-            min-height: 1800px;
+            min-height: 1600px;
         }
         
         svg {
@@ -154,37 +154,34 @@
                 </defs>
                 
                 <!-- Стрелка 1 -> 2 -->
-                <line class="arrow-line" x1="290" y1="100" x2="480" y2="100" />
+                <line class="arrow-line" x1="290" y1="100" x2="470" y2="100" />
                 
                 <!-- Стрелка 2 -> 3 -->
-                <line class="arrow-line" x1="520" y1="200" x2="280" y2="310" />
+                <line class="arrow-line" x1="510" y1="200" x2="280" y2="310" />
                 
                 <!-- Стрелка 2 -> 4 -->
                 <line class="arrow-line" x1="660" y1="200" x2="790" y2="310" />
                 
                 <!-- Стрелка 3 -> 5 -->
-                <line class="arrow-line" x1="280" y1="410" x2="520" y2="520" />
+                <line class="arrow-line" x1="280" y1="410" x2="510" y2="520" />
                 
                 <!-- Стрелка 4 -> 5 -->
                 <line class="arrow-line" x1="800" y1="410" x2="660" y2="520" />
                 
                 <!-- Стрелка 5 -> 6 -->
-                <line class="arrow-line" x1="660" y1="620" x2="800" y2="730" />
+                <line class="arrow-line" x1="660" y1="620" x2="790" y2="730" />
                 
                 <!-- Стрелка 5 -> 7 -->
-                <line class="arrow-line" x1="520" y1="620" x2="280" y2="730" />
+                <line class="arrow-line" x1="510" y1="620" x2="280" y2="730" />
                 
                 <!-- Стрелка 6 -> 8 -->
-                <line class="arrow-line" x1="800" y1="830" x2="660" y2="940" />
+                <line class="arrow-line" x1="940" y1="830" x2="660" y2="940" />
                 
                 <!-- Стрелка 7 -> 8 -->
-                <line class="arrow-line" x1="280" y1="830" x2="520" y2="940" />
+                <line class="arrow-line" x1="290" y1="830" x2="510" y2="940" />
                 
                 <!-- Стрелка 8 -> 9 -->
-                <line class="arrow-line" x1="660" y1="1040" x2="800" y2="1150" />
-                
-                <!-- Стрелка 8 -> 10 -->
-                <line class="arrow-line" x1="520" y1="1040" x2="280" y2="1150" />
+                <line class="arrow-line" x1="660" y1="1040" x2="790" y2="1150" />
             </svg>
             
             <!-- Уровень 1 -->
@@ -209,7 +206,7 @@
             </div>
             
             <!-- Задача 2 -->
-            <div class="task-node critical-path" style="top: 10px; left: 490px;">
+            <div class="task-node critical-path" style="top: 10px; left: 480px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее<br>начало</div>
                     <div class="task-header-cell">Длитель-<br>ность</div>
@@ -271,7 +268,7 @@
             
             <!-- Уровень 3 -->
             <!-- Задача 5 -->
-            <div class="task-node critical-path" style="top: 430px; left: 380px;">
+            <div class="task-node critical-path" style="top: 430px; left: 370px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее<br>начало</div>
                     <div class="task-header-cell">Длитель-<br>ность</div>
@@ -291,26 +288,6 @@
             </div>
             
             <!-- Уровень 4 -->
-            <!-- Задача 6 -->
-            <div class="task-node critical-path" style="top: 640px; left: 800px;">
-                <div class="task-header">
-                    <div class="task-header-cell">Раннее<br>начало</div>
-                    <div class="task-header-cell">Длитель-<br>ность</div>
-                    <div class="task-header-cell">Раннее<br>окончание</div>
-                </div>
-                <div class="task-times-top">
-                    <div class="task-time-cell">90</div>
-                    <div class="task-time-cell">10</div>
-                    <div class="task-time-cell">100</div>
-                </div>
-                <div class="task-name">6. Интеграция платежных систем</div>
-                <div class="task-times-bottom">
-                    <div class="task-time-cell">90</div>
-                    <div class="task-time-cell">0</div>
-                    <div class="task-time-cell">100</div>
-                </div>
-            </div>
-            
             <!-- Задача 7 -->
             <div class="task-node" style="top: 640px; left: 10px;">
                 <div class="task-header">
@@ -331,9 +308,29 @@
                 </div>
             </div>
             
+            <!-- Задача 6 -->
+            <div class="task-node critical-path" style="top: 640px; left: 800px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее<br>начало</div>
+                    <div class="task-header-cell">Длитель-<br>ность</div>
+                    <div class="task-header-cell">Раннее<br>окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">90</div>
+                    <div class="task-time-cell">10</div>
+                    <div class="task-time-cell">100</div>
+                </div>
+                <div class="task-name">6. Интеграция платежных систем</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">90</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">100</div>
+                </div>
+            </div>
+            
             <!-- Уровень 5 -->
             <!-- Задача 8 -->
-            <div class="task-node critical-path" style="top: 850px; left: 380px;">
+            <div class="task-node critical-path" style="top: 850px; left: 370px;">
                 <div class="task-header">
                     <div class="task-header-cell">Раннее<br>начало</div>
                     <div class="task-header-cell">Длитель-<br>ность</div>
@@ -372,29 +369,9 @@
                     <div class="task-time-cell">140</div>
                 </div>
             </div>
-            
-            <!-- Задача 10 (финальная документация) -->
-            <div class="task-node" style="top: 1060px; left: 10px;">
-                <div class="task-header">
-                    <div class="task-header-cell">Раннее<br>начало</div>
-                    <div class="task-header-cell">Длитель-<br>ность</div>
-                    <div class="task-header-cell">Раннее<br>окончание</div>
-                </div>
-                <div class="task-times-top">
-                    <div class="task-time-cell">125</div>
-                    <div class="task-time-cell">10</div>
-                    <div class="task-time-cell">135</div>
-                </div>
-                <div class="task-name">10. Подготовка документации</div>
-                <div class="task-times-bottom">
-                    <div class="task-time-cell">130</div>
-                    <div class="task-time-cell">5</div>
-                    <div class="task-time-cell">140</div>
-                </div>
-            </div>
         </div>
         
-        <div class="legend" style="margin-top: 100px;">
+        <div class="legend" style="margin-top: 150px;">
             <h2>Условные обозначения</h2>
             <div class="legend-item">
                 <strong>Раннее начало (ES):</strong> Самое раннее время начала работы
@@ -428,6 +405,17 @@
             <div class="legend-item">
                 <strong>Общая продолжительность проекта:</strong> 140 дней (≈ 4.5 месяца)
             </div>
+            
+            <h2 style="margin-top: 20px;">Описание работ</h2>
+            <div class="legend-item"><strong>1.</strong> Анализ требований, проектирование архитектуры БД и API (20 дней)</div>
+            <div class="legend-item"><strong>2.</strong> Разработка серверной части: база данных, RESTful API (15 дней)</div>
+            <div class="legend-item"><strong>3.</strong> Модуль поиска препаратов с фильтрацией и наличием (25 дней)</div>
+            <div class="legend-item"><strong>4.</strong> Модуль работы с электронными рецептами и OCR (20 дней, резерв 5 дней)</div>
+            <div class="legend-item"><strong>5.</strong> Корзина, выбор способа доставки, оформление заказа (30 дней)</div>
+            <div class="legend-item"><strong>6.</strong> Интеграция с платежными системами (10 дней)</div>
+            <div class="legend-item"><strong>7.</strong> ML-система рекомендаций препаратов (15 дней, резерв 5 дней)</div>
+            <div class="legend-item"><strong>8.</strong> Комплексное тестирование, исправление ошибок (25 дней)</div>
+            <div class="legend-item"><strong>9.</strong> Развертывание на сервер, настройка CI/CD (15 дней)</div>
         </div>
     </div>
 </body>
