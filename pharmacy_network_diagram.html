@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сетевой график - Веб-приложение для аптечной сети</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 40px 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 40px;
+            font-size: 24px;
+        }
+        
+        .container {
+            max-width: 1800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        .network-graph {
+            position: relative;
+            min-width: 1600px;
+            min-height: 1000px;
+        }
+        
+        .task-node {
+            position: absolute;
+            border: 2px solid #2c3e50;
+            background-color: white;
+            width: 250px;
+        }
+        
+        .task-header {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        .task-header-cell {
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+            border-right: 2px solid #2c3e50;
+            font-weight: bold;
+            background-color: #ecf0f1;
+        }
+        
+        .task-header-cell:last-child {
+            border-right: none;
+        }
+        
+        .task-times-top {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            border-bottom: 2px solid #2c3e50;
+        }
+        
+        .task-time-cell {
+            padding: 10px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: bold;
+            border-right: 2px solid #2c3e50;
+        }
+        
+        .task-time-cell:last-child {
+            border-right: none;
+        }
+        
+        .task-name {
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 12px;
+            line-height: 1.4;
+            border-bottom: 2px solid #2c3e50;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .task-times-bottom {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+        
+        .arrow {
+            position: absolute;
+            height: 2px;
+            background-color: #2c3e50;
+            transform-origin: left center;
+        }
+        
+        .arrow::after {
+            content: '';
+            position: absolute;
+            right: -8px;
+            top: -4px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid #2c3e50;
+            border-top: 5px solid transparent;
+            border-bottom: 5px solid transparent;
+        }
+        
+        .critical-path {
+            background-color: #ffe6e6;
+        }
+        
+        .legend {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #ecf0f1;
+            border-radius: 8px;
+        }
+        
+        .legend h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+        
+        .legend-item {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сетевой график (метод критического пути)<br>Разработка веб-приложения для аптечной сети</h1>
+    
+    <div class="container">
+        <div class="network-graph">
+            <!-- Задача 1 -->
+            <div class="task-node critical-path" style="top: 20px; left: 50px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">20</div>
+                    <div class="task-time-cell">20</div>
+                </div>
+                <div class="task-name">1. Анализ требований и проектирование архитектуры</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">20</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 1->2 -->
+            <div class="arrow" style="top: 110px; left: 305px; width: 130px;"></div>
+            
+            <!-- Задача 2 -->
+            <div class="task-node critical-path" style="top: 20px; left: 450px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">20</div>
+                    <div class="task-time-cell">15</div>
+                    <div class="task-time-cell">35</div>
+                </div>
+                <div class="task-name">2. Разработка базы данных и API</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">20</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">35</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 2->3 -->
+            <div class="arrow" style="top: 110px; left: 705px; width: 100px; transform: rotate(30deg);"></div>
+            
+            <!-- Задача 3 -->
+            <div class="task-node critical-path" style="top: 230px; left: 320px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">35</div>
+                    <div class="task-time-cell">25</div>
+                    <div class="task-time-cell">60</div>
+                </div>
+                <div class="task-name">3. Разработка модуля поиска лекарств</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">35</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">60</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 2->4 -->
+            <div class="arrow" style="top: 110px; left: 705px; width: 100px; transform: rotate(-30deg);"></div>
+            
+            <!-- Задача 4 -->
+            <div class="task-node" style="top: 230px; left: 800px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">35</div>
+                    <div class="task-time-cell">20</div>
+                    <div class="task-time-cell">55</div>
+                </div>
+                <div class="task-name">4. Разработка модуля управления рецептами</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">40</div>
+                    <div class="task-time-cell">5</div>
+                    <div class="task-time-cell">60</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 3->5 -->
+            <div class="arrow" style="top: 320px; left: 575px; width: 100px;"></div>
+            
+            <!-- Стрелка 4->5 -->
+            <div class="arrow" style="top: 320px; left: 1055px; width: 100px; transform: rotate(150deg);"></div>
+            
+            <!-- Задача 5 -->
+            <div class="task-node critical-path" style="top: 440px; left: 560px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">60</div>
+                    <div class="task-time-cell">30</div>
+                    <div class="task-time-cell">90</div>
+                </div>
+                <div class="task-name">5. Разработка модуля корзины и оформления заказа</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">60</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">90</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 5->6 -->
+            <div class="arrow" style="top: 530px; left: 815px; width: 90px; transform: rotate(25deg);"></div>
+            
+            <!-- Задача 6 -->
+            <div class="task-node critical-path" style="top: 650px; left: 850px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">90</div>
+                    <div class="task-time-cell">10</div>
+                    <div class="task-time-cell">100</div>
+                </div>
+                <div class="task-name">6. Интеграция платежных систем</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">90</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">100</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 5->7 -->
+            <div class="arrow" style="top: 530px; left: 815px; width: 90px; transform: rotate(-25deg);"></div>
+            
+            <!-- Задача 7 -->
+            <div class="task-node" style="top: 650px; left: 320px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">90</div>
+                    <div class="task-time-cell">15</div>
+                    <div class="task-time-cell">105</div>
+                </div>
+                <div class="task-name">7. Разработка системы рекомендаций (ML)</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">95</div>
+                    <div class="task-time-cell">5</div>
+                    <div class="task-time-cell">110</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 6->8 -->
+            <div class="arrow" style="top: 740px; left: 1105px; width: 100px;"></div>
+            
+            <!-- Стрелка 7->8 -->
+            <div class="arrow" style="top: 740px; left: 575px; width: 100px; transform: rotate(30deg);"></div>
+            
+            <!-- Задача 8 -->
+            <div class="task-node critical-path" style="top: 850px; left: 850px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">100</div>
+                    <div class="task-time-cell">25</div>
+                    <div class="task-time-cell">125</div>
+                </div>
+                <div class="task-name">8. Тестирование и отладка системы</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">100</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">125</div>
+                </div>
+            </div>
+            
+            <!-- Стрелка 8->9 -->
+            <div class="arrow" style="top: 940px; left: 1105px; width: 130px;"></div>
+            
+            <!-- Задача 9 -->
+            <div class="task-node critical-path" style="top: 850px; left: 1250px;">
+                <div class="task-header">
+                    <div class="task-header-cell">Раннее начало</div>
+                    <div class="task-header-cell">Длительность</div>
+                    <div class="task-header-cell">Раннее окончание</div>
+                </div>
+                <div class="task-times-top">
+                    <div class="task-time-cell">125</div>
+                    <div class="task-time-cell">15</div>
+                    <div class="task-time-cell">140</div>
+                </div>
+                <div class="task-name">9. Развертывание и запуск системы</div>
+                <div class="task-times-bottom">
+                    <div class="task-time-cell">125</div>
+                    <div class="task-time-cell">0</div>
+                    <div class="task-time-cell">140</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="legend">
+            <h2>Условные обозначения</h2>
+            <div class="legend-item">
+                <strong>Раннее начало (ES):</strong> Самое раннее время начала работы
+            </div>
+            <div class="legend-item">
+                <strong>Длительность:</strong> Время выполнения работы (в днях)
+            </div>
+            <div class="legend-item">
+                <strong>Раннее окончание (EF):</strong> Самое раннее время окончания работы
+            </div>
+            <div class="legend-item">
+                <strong>Позднее начало (LS):</strong> Самое позднее время начала работы (нижний левый)
+            </div>
+            <div class="legend-item">
+                <strong>Резерв времени (Total Float):</strong> Запас времени для выполнения работы (нижний центральный)
+            </div>
+            <div class="legend-item">
+                <strong>Позднее окончание (LF):</strong> Самое позднее время окончания работы (нижний правый)
+            </div>
+            <div class="legend-item">
+                <strong style="background-color: #ffe6e6; padding: 2px 8px;">Критический путь:</strong> Работы с нулевым резервом времени (выделены розовым)
+            </div>
+            
+            <h2 style="margin-top: 20px;">Характеристики проекта</h2>
+            <div class="legend-item">
+                <strong>Критический путь:</strong> 1 → 2 → 3 → 5 → 6 → 8 → 9
+            </div>
+            <div class="legend-item">
+                <strong>Длительность критического пути:</strong> 140 дней
+            </div>
+            <div class="legend-item">
+                <strong>Общая продолжительность проекта:</strong> 140 дней
+            </div>
+            
+            <h2 style="margin-top: 20px;">Описание работ</h2>
+            <div class="legend-item"><strong>1.</strong> Анализ требований, проектирование архитектуры БД и API (20 дней)</div>
+            <div class="legend-item"><strong>2.</strong> Разработка серверной части: база данных, RESTful API (15 дней)</div>
+            <div class="legend-item"><strong>3.</strong> Модуль поиска препаратов с фильтрацией и наличием (25 дней)</div>
+            <div class="legend-item"><strong>4.</strong> Модуль работы с электронными рецептами и OCR (20 дней, резерв 5 дней)</div>
+            <div class="legend-item"><strong>5.</strong> Корзина, выбор способа доставки, оформление заказа (30 дней)</div>
+            <div class="legend-item"><strong>6.</strong> Интеграция с платежными системами (ЮKassa, Сбербанк) (10 дней)</div>
+            <div class="legend-item"><strong>7.</strong> ML-система рекомендаций препаратов (15 дней, резерв 5 дней)</div>
+            <div class="legend-item"><strong>8.</strong> Комплексное тестирование, исправление ошибок (25 дней)</div>
+            <div class="legend-item"><strong>9.</strong> Развертывание на сервер, настройка CI/CD (15 дней)</div>
+        </div>
+    </div>
+</body>
+</html>
